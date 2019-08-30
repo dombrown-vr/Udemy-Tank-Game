@@ -1,0 +1,6 @@
+*.db
+*.opendb
+*.suo
+BattleTank/Binaries/
+BattleTank/Intermediate/
+BattleTank/Saved/
