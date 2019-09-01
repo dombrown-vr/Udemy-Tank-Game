@@ -19,27 +19,37 @@ void UTankAimingComponent::SetBarrel(UStaticMeshComponent * BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
-// Called when the game starts
-void UTankAimingComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-// Called every frame
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
 
 void UTankAimingComponent::AimAt(FVector AimLocation, float LaunchSpeed)
 {
 	if (!Barrel) { return; }
-	if (!GetOwner()) { return; }
+	FVector OutLaunchVelocity(0);
+
+	bool bAimSolution = UGameplayStatics::SuggestProjectileVelocity(
+		this,
+		OutLaunchVelocity,
+		Barrel->GetSocketLocation(FName("Projectile")),
+		AimLocation,
+		LaunchSpeed,
+		ESuggestProjVelocityTraceOption::DoNotTrace
+	);
+
+	if(bAimSolution)
+	{
+		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		
+		MoveBarrelTowards(AimDirection);
+	}
 }
 
+void UTankAimingComponent::MoveBarrelTowards(const FVector AimDirection)
+{
+	/// Work out difference between current barrel position and new aim direction
+	/// Move barrel towards new direction given barrel speed and frame rate
+
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimAsRotator - BarrelRotator;
+	UE_LOG(LogTemp, Warning, TEXT("Aiming at %s"), *DeltaRotator.ToString());
+
+}
