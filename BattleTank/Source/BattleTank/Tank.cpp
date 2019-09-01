@@ -8,7 +8,18 @@ ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	AimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
 
+}
+
+void ATank::AimAt(FVector HitLocation)
+{
+	AimingComponent->AimAt(HitLocation);
+}
+
+void ATank::SetBarrel(UStaticMeshComponent * BarrelToSet)
+{
+	AimingComponent->SetBarrel(BarrelToSet);
 }
 
 // Called when the game starts or when spawned

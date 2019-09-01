@@ -23,6 +23,19 @@ void ATankAIController::BeginPlay()
 	auto PlayerTank = GetPlayerTank();
 	UE_LOG(LogTemp, Warning, TEXT("AI Tank: %s found player at Tank: %s"), *ControlledTank->GetName(), *PlayerTank->GetName());
 }
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	AimAtPlayer();
+}
+
+void ATankAIController::AimAtPlayer()
+{
+	auto PlayerLocation = GetPlayerTank()->GetActorLocation();
+	GetControlledTank()->AimAt(PlayerLocation);
+}
+
 ATank* ATankAIController::GetPlayerTank() const
 {
 	auto PlayerController = GetWorld()->GetFirstPlayerController();
