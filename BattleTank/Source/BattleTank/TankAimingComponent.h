@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.generated.h"
 
 
@@ -17,14 +18,14 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	void SetBarrel(UStaticMeshComponent* BarrelToSet);
+	void SetBarrel(UTankBarrel* BarrelToSet);
 
 	void AimAt(FVector AimLocation, float LaunchSpeed);
 
 	void MoveBarrelTowards(const FVector AimDirection);
 
 private:
-	UStaticMeshComponent* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr;
 	UStaticMeshComponent* Turret = nullptr;
 	
 };

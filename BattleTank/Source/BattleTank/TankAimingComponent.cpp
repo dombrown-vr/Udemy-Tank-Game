@@ -14,9 +14,10 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 
-void UTankAimingComponent::SetBarrel(UStaticMeshComponent * BarrelToSet)
+void UTankAimingComponent::SetBarrel(UTankBarrel * BarrelToSet)
 {
 	Barrel = BarrelToSet;
+	
 }
 
 
@@ -45,11 +46,10 @@ void UTankAimingComponent::AimAt(FVector AimLocation, float LaunchSpeed)
 void UTankAimingComponent::MoveBarrelTowards(const FVector AimDirection)
 {
 	/// Work out difference between current barrel position and new aim direction
-	/// Move barrel towards new direction given barrel speed and frame rate
 
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	UE_LOG(LogTemp, Warning, TEXT("Aiming at %s"), *DeltaRotator.ToString());
+	Barrel->Elevate(5.f); // TODO Remove hard-coded number
 
 }
