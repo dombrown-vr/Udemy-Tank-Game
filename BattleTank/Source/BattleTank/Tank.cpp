@@ -20,6 +20,7 @@ void ATank::AimAt(FVector HitLocation)
 void ATank::SetBarrel(UTankBarrel * BarrelToSet)
 {
 	AimingComponent->SetBarrel(BarrelToSet);
+	Barrel = BarrelToSet;
 }
 
 void ATank::SetTurret(UTankTurret * TurretToSet)
@@ -29,7 +30,13 @@ void ATank::SetTurret(UTankTurret * TurretToSet)
 
 void ATank::Fire()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Fire!"));
+	if (!Barrel) { return; }
+	if (!ProjectileBlueprint) { return; }
+	/// Spawn projectile at socket location on Barrel
+
+	GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, 
+	Barrel->GetSocketLocation(FName("Projectile")),
+	Barrel->GetSocketRotation(FName("Projectile")));
 }
 
 // Called to bind functionality to input

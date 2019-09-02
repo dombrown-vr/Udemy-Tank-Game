@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "TankAimingComponent.h"
+#include "Projectile.h"
 #include "Tank.generated.h"
 
 UCLASS()
@@ -39,7 +40,11 @@ protected:
 private:
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 40000.f; //1000 m/s TODO Find sensible default
+	float LaunchSpeed = 40000.f; //1000 m/s TODO Find sensible default
 	
-	
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint = nullptr; 
+
+	// Local barrel reference for spawning projectile
+	UTankBarrel* Barrel = nullptr; 
 };
