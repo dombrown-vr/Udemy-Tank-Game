@@ -2,6 +2,13 @@
 
 #include "TankBarrel.h"
 
+
+UTankBarrel::UTankBarrel()
+{
+	SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+}
+
 void UTankBarrel::Elevate(float RelativeSpeed)
 {
 	/// Move barrel towards new direction given barrel speed and frame rate

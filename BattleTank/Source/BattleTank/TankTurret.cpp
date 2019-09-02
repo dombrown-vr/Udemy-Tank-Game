@@ -3,6 +3,11 @@
 #include "TankTurret.h"
 
 
+UTankTurret::UTankTurret()
+{
+	SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
+
 void UTankTurret::Rotate(float RelativeSpeed)
 {
 	auto ClampedSpeed = FMath::Clamp<float>(RelativeSpeed, -1.f, 1.f);
