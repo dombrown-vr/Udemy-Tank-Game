@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.generated.h"
 
 
@@ -19,6 +20,7 @@ public:
 	UTankAimingComponent();
 
 	void SetBarrel(UTankBarrel* BarrelToSet);
+	void SetTurret(UTankTurret* TurretToSet);
 
 	void AimAt(FVector AimLocation, float LaunchSpeed);
 
@@ -26,6 +28,6 @@ public:
 
 private:
 	UTankBarrel* Barrel = nullptr;
-	UStaticMeshComponent* Turret = nullptr;
+	UTankTurret* Turret = nullptr;
 	
 };

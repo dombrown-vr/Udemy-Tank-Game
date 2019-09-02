@@ -20,6 +20,11 @@ void UTankAimingComponent::SetBarrel(UTankBarrel * BarrelToSet)
 	
 }
 
+void UTankAimingComponent::SetTurret(UTankTurret * TurretToSet)
+{
+	Turret = TurretToSet;
+}
+
 
 void UTankAimingComponent::AimAt(FVector AimLocation, float LaunchSpeed)
 {
@@ -44,20 +49,22 @@ void UTankAimingComponent::AimAt(FVector AimLocation, float LaunchSpeed)
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		
 		MoveBarrelTowards(AimDirection);
-		UE_LOG(LogTemp, Warning, TEXT("%f: Barrel elevate called"), Time);
+		
 	}
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("%f: No aiming solution found"), Time);
-	}
+
 }
 
 void UTankAimingComponent::MoveBarrelTowards(const FVector AimDirection)
 {
 	/// Work out difference between current barrel position and new aim direction
+	auto AimAsRotator = AimDirection.Rotation();
 
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
-	auto AimAsRotator = AimDirection.Rotation();
-	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	Barrel->Elevate(5.f); // TODO Remove hard-coded number
+	auto BarrelDeltaRotator = AimAsRotator - BarrelRotator;
+	Barrel->Elevate(BarrelDeltaRotator.Pitch); 
+
+	//auto TurretRotator = Turret->GetForwardVector().Rotation();
+	//auto TurretDeltaRotator = AimAsRotator - TurretRotator;
+	Turret->Rotate(BarrelDeltaRotator.Yaw);
 
 }
