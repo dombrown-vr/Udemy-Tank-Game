@@ -30,15 +30,21 @@ void ATank::SetTurret(UTankTurret * TurretToSet)
 
 void ATank::Fire()
 {
-	if (!Barrel) { return; }
-	if (!ProjectileBlueprint) { return; }
-	/// Spawn projectile at socket location on Barrel
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds;
+	if (isReloaded)
+	{
+		LastFireTime = FPlatformTime::Seconds();
+		if (Barrel && ProjectileBlueprint)
+		{
+			/// Spawn projectile at socket location on Barrel
 
-	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, 
-	Barrel->GetSocketLocation(FName("Projectile")),
-	Barrel->GetSocketRotation(FName("Projectile")));
+			auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
+				Barrel->GetSocketLocation(FName("Projectile")),
+				Barrel->GetSocketRotation(FName("Projectile")));
 
-	Projectile->LaunchProjectile(LaunchSpeed);
+			Projectile->LaunchProjectile(LaunchSpeed);
+		}
+	}
 }
 
 // Called to bind functionality to input
