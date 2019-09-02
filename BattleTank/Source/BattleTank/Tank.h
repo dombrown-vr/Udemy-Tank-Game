@@ -37,6 +37,8 @@ protected:
 
 	UTankAimingComponent* AimingComponent = nullptr;
 
+	
+
 private:
 
 	UPROPERTY(EditAnywhere, Category = Firing)
