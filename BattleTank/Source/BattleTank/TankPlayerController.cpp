@@ -10,14 +10,7 @@ ATankPlayerController::ATankPlayerController()
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	if (GetControlledTank())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("TankPlayerController possessing %s"), *GetControlledTank()->GetName());
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("TankPlayerController possessing no pawn"));
-	}
+
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
