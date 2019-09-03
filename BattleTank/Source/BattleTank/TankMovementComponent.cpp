@@ -5,6 +5,24 @@
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Intend Move Forward: %f"), Throw);
+	if (!TrackL || !TrackR) { return; }
+	TrackL->SetThrottle(Throw);
+	TrackR->SetThrottle(Throw);
 }
 
+void UTankMovementComponent::IntendRotateClockwise(float Throw)
+{
+	if (!TrackL || !TrackR) { return; }
+	TrackL->SetThrottle(Throw);
+	TrackR->SetThrottle(-Throw);
+}
+
+void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
+{
+	if (!LeftTrackToSet || !RightTrackToSet) { return; }
+	
+	TrackL = LeftTrackToSet;		
+	TrackR = RightTrackToSet;
+	
+
+}
