@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "TankAimingComponent.h"
 #include "Projectile.h"
+#include "TankMovementComponent.h"
 #include "Tank.generated.h"
 
 UCLASS()
@@ -37,7 +38,8 @@ protected:
 
 	UTankAimingComponent* AimingComponent = nullptr;
 
-	
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* MovementComponent = nullptr;
 
 private:
 
