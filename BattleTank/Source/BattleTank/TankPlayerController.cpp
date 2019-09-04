@@ -10,6 +10,15 @@ ATankPlayerController::ATankPlayerController()
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent)
+	{
+		FoundAimingComponent(AimingComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s: No Aiming Component Found"), *GetName());
+	}
 
 }
 
@@ -27,7 +36,8 @@ void ATankPlayerController::AimTowardsCrosshair()
 
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		GetControlledTank()->AimAt(HitLocation);
+		if (AimingComponent) 
+			AimingComponent->AimAt(HitLocation);
 	}
 }
 
@@ -84,6 +94,7 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenPosition, FVector& 
 		return false;
 	}
 }
+
 
 ATank* ATankPlayerController::GetControlledTank() const
 {

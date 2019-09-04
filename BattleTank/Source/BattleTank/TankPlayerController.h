@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 #include "Engine/World.h"
 #include "Camera/PlayerCameraManager.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
 /**
- * 
+ * Provides a reticule for player aim
  */
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
@@ -20,6 +21,8 @@ public:
 	ATankPlayerController();
 
 protected:
+	UFUNCTION(BlueprintImplementableEvent, Category = Setup)
+	void FoundAimingComponent(UTankAimingComponent* AimingCompRef);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	ATank* GetControlledTank() const;
@@ -46,5 +49,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000.0f;
+
+	UTankAimingComponent* AimingComponent = nullptr;
 
 };

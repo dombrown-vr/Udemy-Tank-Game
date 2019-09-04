@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
 #include "TankAimingComponent.generated.h"
 
 
@@ -27,24 +28,35 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	void SetBarrel(UTankBarrel* BarrelToSet);
-	void SetTurret(UTankTurret* TurretToSet);
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void Initialise(UTankBarrel* TankBarrelToSet, UTankTurret* TankTurretToSet);
 
-	void AimAt(FVector AimLocation, float LaunchSpeed);
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	void Fire();
+
+
+
+	void AimAt(FVector AimLocation);
 
 	void MoveBarrelTowards(const FVector AimDirection);
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = State)
-		EFiringState FiringState = EFiringState::Reloading;
+		EFiringState FiringState = EFiringState::Aiming;
 
 private:
-
-	void SetFiringState(const EFiringState UpdatedState);
 
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
-	
-	
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+		float ReloadTimeSeconds = 3.f;
+
+	double LastFireTime = 0.0;
+
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+		TSubclassOf<AProjectile> ProjectileBlueprint = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+		float LaunchSpeed = 40000.f; //1000 m/s TODO Find sensible default
 };

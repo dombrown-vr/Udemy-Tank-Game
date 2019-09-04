@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "TankAimingComponent.h"
-#include "Projectile.h"
+
 #include "TankMovementComponent.h"
 #include "Tank.generated.h"
 
@@ -18,43 +18,18 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 
-	void AimAt(FVector HitLocation);
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrel(UTankBarrel * BarrelToSet);
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTurret(UTankTurret * TurretToSet);
-
-	UFUNCTION(BlueprintCallable, Category = Firing)
-	void Fire();
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-
-
 protected:
 
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* AimingComponent = nullptr;
 
-	UPROPERTY(BlueprintReadOnly)
-	UTankMovementComponent* MovementComponent = nullptr;
 
 private:
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float LaunchSpeed = 40000.f; //1000 m/s TODO Find sensible default
+
 	
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	TSubclassOf<AProjectile> ProjectileBlueprint = nullptr; 
 
-	// Local barrel reference for spawning projectile
-	UTankBarrel* Barrel = nullptr; 
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float ReloadTimeSeconds = 3.f;
-
-	double LastFireTime = 0.0;
 };

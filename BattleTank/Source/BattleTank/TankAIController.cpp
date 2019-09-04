@@ -15,9 +15,9 @@ void ATankAIController::Tick(float DeltaTime)
 
 
 		auto PlayerLocation = PlayerTank->GetActorLocation();
-		Tank->AimAt(PlayerLocation);
+//		->AimAt(PlayerLocation);
 
-		Tank->Fire(); 
+//		Tank->Fire(); 
 	}
 	
 }
