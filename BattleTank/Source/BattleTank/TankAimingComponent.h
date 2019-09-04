@@ -10,6 +10,14 @@
 #include "TankAimingComponent.generated.h"
 
 
+UENUM()
+enum class EFiringState : uint8
+{
+	Locked,
+	Aiming,
+	Reloading
+};
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
@@ -26,8 +34,17 @@ public:
 
 	void MoveBarrelTowards(const FVector AimDirection);
 
+protected:
+	UPROPERTY(BlueprintReadOnly, Category = State)
+		EFiringState FiringState = EFiringState::Reloading;
+
 private:
+
+	void SetFiringState(const EFiringState UpdatedState);
+
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
+
+	
 	
 };

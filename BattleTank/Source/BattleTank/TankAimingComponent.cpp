@@ -67,5 +67,15 @@ void UTankAimingComponent::MoveBarrelTowards(const FVector AimDirection)
 	//auto TurretRotator = Turret->GetForwardVector().Rotation();
 	//auto TurretDeltaRotator = AimAsRotator - TurretRotator;
 	Turret->Rotate(BarrelDeltaRotator.Yaw);
+	
+	if (BarrelDeltaRotator.Equals(FRotator(0.f), 0.1))
+	{
+		auto Time = FPlatformTime::Seconds();
+		//UE_LOG(LogTemp, Warning, TEXT("%f: Ready to fire! %s"), Time, *BarrelDeltaRotator.ToString());
+	}
+}
 
+void UTankAimingComponent::SetFiringState(const EFiringState UpdatedState)
+{
+	FiringState = UpdatedState;
 }
