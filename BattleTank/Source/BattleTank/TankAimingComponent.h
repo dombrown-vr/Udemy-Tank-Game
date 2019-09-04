@@ -34,8 +34,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 
-
-
 	void AimAt(FVector AimLocation);
 
 	void MoveBarrelTowards(const FVector AimDirection);
