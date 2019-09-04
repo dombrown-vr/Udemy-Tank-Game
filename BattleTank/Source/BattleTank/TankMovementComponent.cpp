@@ -5,21 +5,21 @@
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	if (!TrackL || !TrackR) { return; }
+	if (ensure(!(TrackL && TrackR))) { return; }
 	TrackL->SetThrottle(Throw);
 	TrackR->SetThrottle(Throw);
 }
 
 void UTankMovementComponent::IntendRotateClockwise(float Throw)
 {
-	if (!TrackL || !TrackR) { return; }
+	if (ensure(!(TrackL && TrackR))) { return; }
 	TrackL->SetThrottle(Throw);
 	TrackR->SetThrottle(-Throw);
 }
 
 void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
-	if (!LeftTrackToSet || !RightTrackToSet) { return; }
+	if (ensure(!(LeftTrackToSet && RightTrackToSet))) { return; }
 	
 	TrackL = LeftTrackToSet;		
 	TrackR = RightTrackToSet;
