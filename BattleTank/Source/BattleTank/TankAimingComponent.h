@@ -46,6 +46,8 @@ protected:
 
 private:
 
+	bool isReloaded();
+
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 

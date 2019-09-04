@@ -25,8 +25,8 @@ void UTankAimingComponent::Initialise(UTankBarrel * TankBarrelToSet, UTankTurret
 
 void UTankAimingComponent::Fire()
 {
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds;
-	if (isReloaded)
+
+	if (isReloaded())
 	{
 		LastFireTime = FPlatformTime::Seconds();
 		if (Barrel && ProjectileBlueprint)
@@ -82,9 +82,21 @@ void UTankAimingComponent::MoveBarrelTowards(const FVector AimDirection)
 	//auto TurretDeltaRotator = AimAsRotator - TurretRotator;
 	Turret->Rotate(BarrelDeltaRotator.Yaw);
 	
-	if (BarrelDeltaRotator.Equals(FRotator(0.f), 0.1))
+	if (!isReloaded())
 	{
-		auto Time = FPlatformTime::Seconds();
-		//UE_LOG(LogTemp, Warning, TEXT("%f: Ready to fire! %s"), Time, *BarrelDeltaRotator.ToString());
+		FiringState = EFiringState::Reloading;
 	}
+	else
+	{
+		if (BarrelDeltaRotator.Equals(FRotator(0.f), 0.1))
+			FiringState = EFiringState::Locked;
+		else
+			FiringState = EFiringState::Aiming;
+	}
+	
+}
+
+bool UTankAimingComponent::isReloaded()
+{
+	return (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeSeconds;
 }
