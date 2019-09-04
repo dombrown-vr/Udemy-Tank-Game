@@ -27,7 +27,6 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 
 void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("RequestDirectMove"));
 	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
 	auto TankForwardDirection = GetOwner()->GetActorForwardVector().GetSafeNormal();
 

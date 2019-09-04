@@ -7,6 +7,7 @@ void UTankTrack::SetThrottle(float ThrottleAmount)
 {
 	
 	// TODO Clamp throttle value
+	ThrottleAmount = FMath::Clamp<float>(ThrottleAmount, -1.f, 1.f);
 	auto Forwards = GetForwardVector().GetSafeNormal();
 	auto ForceApplied = Forwards * ThrottleAmount * TrackMaxDrivingForce;
 	auto ForceLocation = GetComponentLocation();

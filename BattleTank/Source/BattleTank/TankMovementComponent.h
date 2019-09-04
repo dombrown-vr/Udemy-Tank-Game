@@ -25,10 +25,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
 
-
+private:
+	// Called from the pathfinding logic by the AI controllers
 	void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 	
-private:
 	UTankTrack* TrackL = nullptr;
 	UTankTrack* TrackR = nullptr;	
 };
