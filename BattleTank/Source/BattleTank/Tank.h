@@ -4,9 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "TankAimingComponent.h"
-
-#include "TankMovementComponent.h"
 #include "Tank.generated.h"
 
 UCLASS()

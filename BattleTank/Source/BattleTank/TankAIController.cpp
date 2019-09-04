@@ -7,17 +7,16 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	auto Tank = Cast<ATank>(GetPawn());
-	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	auto Aiming = Tank->FindComponentByClass<UTankAimingComponent>();
-	if (ensure(PlayerTank && Tank && Aiming))
+	auto Aiming = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+
+	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
+	
+	if (ensure(PlayerTank && Aiming))
 	{
 		MoveToActor(PlayerTank, AcceptanceRadius, true, true, false); // TODO check radius is in cm
 
-
 		auto PlayerLocation = PlayerTank->GetActorLocation();
 		Aiming->AimAt(PlayerLocation);
-
 		Aiming->Fire(); 
 	}
 	
