@@ -113,3 +113,8 @@ void UTankAimingComponent::MoveBarrelTowards(const FVector AimDirection)
 		Turret->Rotate(BarrelDeltaRotator.Yaw);
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *BarrelDeltaRotator.ToString());
 }
+
+EFiringState UTankAimingComponent::GetFiringState() const
+{
+	return FiringState;
+}

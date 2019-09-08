@@ -40,6 +40,8 @@ public:
 
 	void MoveBarrelTowards(const FVector AimDirection);
 
+	EFiringState GetFiringState() const;
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = State)
 		EFiringState FiringState = EFiringState::Aiming;
