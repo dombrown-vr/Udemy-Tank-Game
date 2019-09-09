@@ -26,6 +26,7 @@ private:
 
 	virtual void SetPawn(APawn* PawnToSet) override;
 
+	UFUNCTION()
 	void OnTankDestroyed();
 
 	//How close can the AI tank can get to the player

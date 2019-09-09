@@ -49,6 +49,7 @@ private:
 
 	UTankAimingComponent* AimingComponent = nullptr;
 
+	UFUNCTION()
 	void OnTankDestroyed();
 
 	void SetPawn(APawn* PawnToSet) override;

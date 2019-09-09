@@ -73,6 +73,8 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 
 void ATankPlayerController::OnTankDestroyed()
 {
+	if (!ensure(GetPawn())) { return; }
+	StartSpectatingOnly();
 }
 
 void ATankPlayerController::SetPawn(APawn * PawnToSet)
