@@ -26,6 +26,8 @@ public:
 
 private:
 
+	void BeginPlay() override;
+
 	virtual float TakeDamage
 	(
 		float DamageAmount,
