@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "TankAimingComponent.h"
+#include "Tank.h"
 #include "Engine/World.h"
 #include "Camera/PlayerCameraManager.h"
 #include "GameFramework/PlayerController.h"
@@ -47,5 +48,9 @@ private:
 	float LineTraceRange = 1000000.0f;
 
 	UTankAimingComponent* AimingComponent = nullptr;
+
+	void OnTankDestroyed();
+
+	void SetPawn(APawn* PawnToSet) override;
 
 };

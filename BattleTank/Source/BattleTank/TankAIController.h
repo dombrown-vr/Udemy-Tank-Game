@@ -6,11 +6,13 @@
 #include "AIController.h"
 #include "GameFramework/Actor.h"
 #include "TankAimingComponent.h"
+#include "Tank.h"
 #include "TankAIController.generated.h"
 
 /**
  * 
  */
+
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
 {
@@ -21,6 +23,10 @@ private:
 	void Tick(float DeltaTime) override;
 
 private:
+
+	virtual void SetPawn(APawn* PawnToSet) override;
+
+	void OnTankDestroyed();
 
 	//How close can the AI tank can get to the player
 	UPROPERTY(EditDefaultsOnly, Category = Setup)

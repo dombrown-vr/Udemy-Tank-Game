@@ -71,6 +71,21 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 	return false;
 }
 
+void ATankPlayerController::OnTankDestroyed()
+{
+}
+
+void ATankPlayerController::SetPawn(APawn * PawnToSet)
+{
+	Super::SetPawn(PawnToSet);
+	if(PawnToSet)
+	{
+		auto PossessedTank = Cast<ATank>(PawnToSet);
+		if (!ensure(PossessedTank)) { return; }
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDestroyed);
+	}
+}
+
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenPosition, FVector& LookDirection) const
 {
 	FVector WorldLocation; // To be discarded

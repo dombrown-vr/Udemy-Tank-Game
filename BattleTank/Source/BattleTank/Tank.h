@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankCallback);
+
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
@@ -18,6 +20,9 @@ public:
 	// Gets current health between 0.0 and 1.0
 	UFUNCTION(BlueprintPure, Category = Health)
 	float GetHealth() const;
+
+	UPROPERTY(VisibleAnywhere)
+	FTankCallback OnDeath;
 
 private:
 
@@ -33,4 +38,5 @@ private:
 	int32 TotalHealth = 100.f;
 
 	int32 CurrentHealth;
+
 };
